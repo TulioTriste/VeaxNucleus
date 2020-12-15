@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="api-5.2">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/libs/BungeeCord-1.7.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/lombok.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/api-5.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
