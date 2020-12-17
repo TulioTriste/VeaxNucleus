@@ -1,5 +1,7 @@
 package dev.veax.nucleus.commands;
 
+import com.google.common.collect.Maps;
+import com.google.common.collect.Sets;
 import dev.veax.nucleus.Nucleus;
 import dev.veax.nucleus.util.CC;
 import io.netty.util.internal.ConcurrentSet;
@@ -15,7 +17,7 @@ import java.util.*;
 public class StaffChatCommand extends Command {
 
     private final Nucleus plugin = Nucleus.getInstance();
-    public static final Set<UUID> toggle = new ConcurrentSet<>();
+    public static final Set<UUID> toggle = Sets.newHashSet();
 
     public StaffChatCommand() {
         super("staffchat", "veax.nucleus.staffchat", "sc", "staffc");
@@ -39,15 +41,13 @@ public class StaffChatCommand extends Command {
             return;
         }
         StringBuilder message = new StringBuilder(Strings.EMPTY);
-        for (String string : strings) {
+        for (String string : strings)
             message.append(string).append(" ");
-        }
         String prefix = LuckPermsProvider.get().getUserManager().getUser(player.getUniqueId()).getCachedData().getMetaData().getPrefix() != null ? LuckPermsProvider.get().getUserManager().getUser(player.getUniqueId()).getCachedData().getMetaData().getPrefix() : "&r";
         String playerString = prefix + player.getName();
         this.plugin.getProxy().getPlayers().forEach(players -> {
-            if (players.hasPermission(getPermission())) {
+            if (players.hasPermission(getPermission()))
                 players.sendMessage(CC.translate("&9[" + player.getServer().getInfo().getName() + "] " + playerString + "&7: &f" + message.toString()));
-            }
         });
     }
 }

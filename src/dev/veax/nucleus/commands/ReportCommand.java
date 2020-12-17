@@ -15,17 +15,13 @@ public class ReportCommand extends Command {
     private final Nucleus plugin = Nucleus.getInstance();
 
     public ReportCommand() {
-        super("report", "veax.nucleus.report");
+        super("report");
     }
 
     @Override
     public void execute(CommandSender commandSender, String[] strings) {
         if (!(commandSender instanceof ProxiedPlayer)) {
             commandSender.sendMessage(CC.translate("&cThis command only executable by Players."));
-            return;
-        }
-        if (!commandSender.hasPermission(getPermission())) {
-            commandSender.sendMessage(CC.translate("&cNo permissions."));
             return;
         }
         if (strings.length == 0) {
@@ -53,7 +49,7 @@ public class ReportCommand extends Command {
         long timeLeft = System.currentTimeMillis() - this.plugin.getCooldownManager().getCooldown("report", player.getUniqueId());
         if (TimeUnit.MILLISECONDS.toSeconds(timeLeft) >= 60L) {
             for (ProxiedPlayer online : this.plugin.getProxy().getPlayers()) {
-                if (online.hasPermission(getPermission())) {
+                if (online.hasPermission("veax.nucleus.report.notify")) {
                     online.sendMessage(CC.translate("&9[Report] &7[" + player.getServer().getInfo().getName() + "] " + playerString + " &bhas reported &a" + targetString));
                     online.sendMessage(CC.translate("      &9Reason: &b" + reason.toString()));
                 }

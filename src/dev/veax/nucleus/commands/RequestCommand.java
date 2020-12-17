@@ -8,6 +8,7 @@ import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Command;
 
+import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
 public class RequestCommand extends Command {
@@ -15,7 +16,7 @@ public class RequestCommand extends Command {
     private final Nucleus plugin = Nucleus.getInstance();
 
     public RequestCommand() {
-        super("request", "veax.nucleus.request", "helpop");
+        super("request", null, "helpop");
     }
 
     @Override
@@ -24,23 +25,18 @@ public class RequestCommand extends Command {
             commandSender.sendMessage(CC.translate("&cThis command only executable by Players."));
             return;
         }
-        if (!commandSender.hasPermission(getPermission())) {
-            commandSender.sendMessage(CC.translate("&cNo permissions."));
-            return;
-        }
         if (strings.length == 0) {
             commandSender.sendMessage(CC.translate("&cUsage: /request <message>"));
             return;
         }
         ProxiedPlayer player = (ProxiedPlayer) commandSender;
         StringBuilder reason = new StringBuilder(Strings.EMPTY);
-        for (String string : strings) {
+        for (String string : strings)
             reason.append(string).append(" ");
-        }
         long timeLeft = System.currentTimeMillis() - this.plugin.getCooldownManager().getCooldown("request", player.getUniqueId());
         if (TimeUnit.MILLISECONDS.toSeconds(timeLeft) >= 60L) {
             for (ProxiedPlayer online : this.plugin.getProxy().getPlayers()) {
-                if (online.hasPermission(getPermission())) {
+                if (online.hasPermission("veax.nucleus.request.notify")) {
                     String prefix = LuckPermsProvider.get().getUserManager().getUser(online.getUniqueId()).getCachedData().getMetaData().getPrefix() != null ? LuckPermsProvider.get().getUserManager().getUser(online.getUniqueId()).getCachedData().getMetaData().getPrefix() : "&r";
                     String playerString = prefix + online.getName();
                     online.sendMessage(CC.translate("&9[Request] &7[" + player.getServer().getInfo().getName() + "] &b" + playerString + " &bhas requested assistance"));

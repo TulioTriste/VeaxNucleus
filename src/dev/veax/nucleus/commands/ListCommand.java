@@ -23,6 +23,6 @@ public class ListCommand extends Command {
         }
         ProxiedPlayer player = (ProxiedPlayer) commandSender;
         Server server = player.getServer();
-        commandSender.sendMessage(CC.translate("&bThere is currently &3" + server.getInfo().getPlayers().size() + " player" + (server.getInfo().getPlayers().size() == 1 ? "": "s") + " &bin &3" + server.getInfo().getName()));
+        commandSender.sendMessage(CC.translate("&bThere " + (server.getInfo().getPlayers().size() == 1 ? "is": "are") + " currently &3" + server.getInfo().getPlayers().size() + " player" + (server.getInfo().getPlayers().size() == 1 ? "": "s") + " &bin &3" + server.getInfo().getName()));
     }
 }
