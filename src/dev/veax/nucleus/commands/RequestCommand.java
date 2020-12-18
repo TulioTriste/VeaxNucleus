@@ -34,11 +34,11 @@ public class RequestCommand extends Command {
         for (String string : strings)
             reason.append(string).append(" ");
         long timeLeft = System.currentTimeMillis() - this.plugin.getCooldownManager().getCooldown("request", player.getUniqueId());
+        String prefix = LuckPermsProvider.get().getUserManager().getUser(player.getUniqueId()).getCachedData().getMetaData().getPrefix() != null ? LuckPermsProvider.get().getUserManager().getUser(player.getUniqueId()).getCachedData().getMetaData().getPrefix() : "&r";
+        String playerString = prefix + player.getName();
         if (TimeUnit.MILLISECONDS.toSeconds(timeLeft) >= 60L) {
             for (ProxiedPlayer online : this.plugin.getProxy().getPlayers()) {
                 if (online.hasPermission("veax.nucleus.request.notify")) {
-                    String prefix = LuckPermsProvider.get().getUserManager().getUser(online.getUniqueId()).getCachedData().getMetaData().getPrefix() != null ? LuckPermsProvider.get().getUserManager().getUser(online.getUniqueId()).getCachedData().getMetaData().getPrefix() : "&r";
-                    String playerString = prefix + online.getName();
                     online.sendMessage(CC.translate("&9[Request] &7[" + player.getServer().getInfo().getName() + "] &b" + playerString + " &bhas requested assistance"));
                     online.sendMessage(CC.translate("      &9Reason: &b" + reason.toString()));
                 }
