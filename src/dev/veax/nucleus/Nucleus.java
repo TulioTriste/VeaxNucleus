@@ -41,6 +41,11 @@ public class Nucleus extends Plugin {
         ProxyServer.getInstance().getPluginManager().registerCommand(this, new RequestCommand());
         ProxyServer.getInstance().getPluginManager().registerCommand(this, new StaffChatCommand());
         ProxyServer.getInstance().getPluginManager().registerCommand(this, new ReportCommand());
+        ProxyServer.getInstance().getPluginManager().registerCommand(this, new BuildsCommand());
+        ProxyServer.getInstance().getPluginManager().registerCommand(this, new ComboCommand());
+        ProxyServer.getInstance().getPluginManager().registerCommand(this, new DevelopmentCommand());
+        ProxyServer.getInstance().getPluginManager().registerCommand(this, new HCFCommand());
+        ProxyServer.getInstance().getPluginManager().registerCommand(this, new KitsCommand());
     }
 
     private void registerListeners() {

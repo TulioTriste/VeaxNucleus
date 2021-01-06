@@ -8,7 +8,7 @@ import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Command;
 
-import java.util.Arrays;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 public class RequestCommand extends Command {
@@ -34,7 +34,7 @@ public class RequestCommand extends Command {
         for (String string : strings)
             reason.append(string).append(" ");
         long timeLeft = System.currentTimeMillis() - this.plugin.getCooldownManager().getCooldown("request", player.getUniqueId());
-        String prefix = LuckPermsProvider.get().getUserManager().getUser(player.getUniqueId()).getCachedData().getMetaData().getPrefix() != null ? LuckPermsProvider.get().getUserManager().getUser(player.getUniqueId()).getCachedData().getMetaData().getPrefix() : "&r";
+        String prefix = Objects.requireNonNull(LuckPermsProvider.get().getUserManager().getUser(player.getUniqueId())).getCachedData().getMetaData().getPrefix() != null ? Objects.requireNonNull(LuckPermsProvider.get().getUserManager().getUser(player.getUniqueId())).getCachedData().getMetaData().getPrefix() : "&r";
         String playerString = prefix + player.getName();
         if (TimeUnit.MILLISECONDS.toSeconds(timeLeft) >= 60L) {
             for (ProxiedPlayer online : this.plugin.getProxy().getPlayers()) {
